@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   # Routes for the Photo resource:
-  get "/", :controller => "photos", :action => "index"
+  
   # CREATE
   post("/insert_photo", { :controller => "photos", :action => "create" })
           
@@ -20,6 +20,6 @@ Rails.application.routes.draw do
   #------------------------------
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
+  get "/", :controller => "photos", :action => "index"
 
 end
