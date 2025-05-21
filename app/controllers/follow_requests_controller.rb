@@ -29,6 +29,7 @@ class FollowRequestsController < ApplicationController
     else
       redirect_to("/follow_requests", { :alert => the_follow_request.errors.full_messages.to_sentence })
     end
+
   end
 
   def update

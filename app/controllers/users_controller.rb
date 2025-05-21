@@ -13,6 +13,12 @@ class UsersController < ApplicationController
     matching_users = User.where({ :username => the_username })
 
     @the_user = matching_users.at(0)
+    
+    pending_requests = FollowRequest.where({
+      :recipient_id => @the_user.id,
+      :status       => "pending"
+    })
+    @pending_follow_requests = pending_requests
 
     render({ :template => "users/show" })
   end

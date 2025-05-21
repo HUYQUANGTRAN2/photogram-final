@@ -1,1 +1,47 @@
-"Hello world"
+<h1>
+  <a href="/users/<%= @the_user.username %>">
+    <%= @the_user.username %>
+  </a>
+</h1>
+
+<p>
+  <% if @the_user.private? %>
+    Private account
+  <% else %>
+    Public account
+  <% end %>
+</p>
+
+<% if current_user %>
+  <p>
+    Signed in as
+    <a href="/users/<%= current_user.username %>">
+      <%= current_user.username %>
+    </a>
+  </p>
+<% end %>
+
+<% if @pending_follow_requests.any? %>
+  <h2>Pending Follow Requests</h2>
+  <ul>
+    <% @pending_follow_requests.each do |fr| %>
+      <% sender = User.where({ :id => fr.sender_id }).at(0) %>
+      <li>
+        <a href="/users/<%= sender.username %>">
+          <%= sender.username %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if current_user && current_user.id != @the_user.id %>
+  <form action="/follow_requests" method="post">
+    <input
+      type="hidden"
+      name="recipient_id"
+      value="<%= @the_user.id %>"
+    >
+    <button type="submit">Follow</button>
+  </form>
+<% end %>

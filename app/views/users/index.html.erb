@@ -22,7 +22,7 @@
 
       </a>
 
-       <% unless an_user.id == current_user.id %>
+      <% if user_signed_in? && an_user.id != current_user.id %>
         <form action="/follow_requests" method="post">
           <input
             type="hidden"
@@ -31,6 +31,7 @@
           >
           <button type="submit">Follow</button>
         </form>
+      <% end %>
     </li>
   <% end %>
 </ul>
