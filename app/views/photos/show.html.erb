@@ -13,6 +13,10 @@
   Posted by <%= @owner_user.username %>
 </p>
 
+<p>
+  Comments: <%= @comments_count %>
+</p>
+
 <hr>
 
 <% if user_signed_in? && current_user.id == @the_photo.owner_id %>

@@ -25,6 +25,10 @@ class PhotosController < ApplicationController
     matching_users = User.where({ :id => @the_photo.owner_id })
     @owner_user    = matching_users.at(0)
 
+    matching_comments = Comment.where({ :photo_id => @the_photo.id })
+    @comments         = matching_comments
+    @comments_count   = matching_comments.count
+
     render({ :template => "photos/show" })
   end
 
