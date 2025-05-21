@@ -15,6 +15,19 @@
 
 <hr>
 
+<% if user_signed_in? && current_user.id == @the_photo.owner_id %>
+  <form action="/update_photo/<%= @the_photo.id %>" method="post">
+    <label for="query_caption">Caption</label>
+    <input
+      id="query_caption"
+      type="text"
+      name="query_caption"
+      value="<%= @the_photo.caption %>"
+    >
+    <button type="submit">Update photo</button>
+  </form>
+<% end %>
+
 <h2>Comments</h2>
 <% if @comments.empty? %>
   <p>No comments yet.</p>
@@ -34,4 +47,15 @@
   <a href="/delete_photo/<%= @the_photo.id %>">
     Delete this photo
   </a>
+<% end %>
+
+<% if user_signed_in? %>
+  <form action="/likes" method="post">
+    <input
+      type="hidden"
+      name="photo_id"
+      value="<%= @the_photo.id %>"
+    >
+    <button type="submit">Like</button>
+  </form>
 <% end %>

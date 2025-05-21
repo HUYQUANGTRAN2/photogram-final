@@ -17,16 +17,27 @@ class LikesController < ApplicationController
     render({ :template => "likes/show" })
   end
 
-  def create
-    the_like = Like.new
-    the_like.fan_id = params.fetch("query_fan_id")
-    the_like.photo_id = params.fetch("query_photo_id")
 
-    if the_like.valid?
-      the_like.save
-      redirect_to("/likes", { :notice => "Like created successfully." })
+  def create
+    # grab only the photo_id that your form sends
+    photo_id = params.fetch("photo_id")
+
+    new_like = Like.new
+    # don’t trust the form for fan_id—use the signed-in user
+    new_like.fan_id   = current_user.id
+    new_like.photo_id = photo_id
+
+    if new_like.valid?
+      new_like.save
+      redirect_to(
+        "/photos/#{photo_id}",
+        { :notice => "Like created successfully." }
+      )
     else
-      redirect_to("/likes", { :alert => the_like.errors.full_messages.to_sentence })
+      redirect_to(
+        "/photos/#{photo_id}",
+        { :alert => new_like.errors.full_messages.to_sentence }
+      )
     end
   end
 
@@ -53,4 +64,4 @@ class LikesController < ApplicationController
 
     redirect_to("/likes", { :notice => "Like deleted successfully."} )
   end
-end
+end 

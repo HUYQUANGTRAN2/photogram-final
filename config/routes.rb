@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   # Routes for the Like resource:
 
   # CREATE
-  post("/insert_like", { :controller => "likes", :action => "create" })
+  post("/likes", { :controller => "likes", :action => "create" })
           
   # READ
   get("/likes", { :controller => "likes", :action => "index" })
