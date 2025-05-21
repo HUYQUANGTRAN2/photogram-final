@@ -59,3 +59,20 @@
     <button type="submit">Like</button>
   </form>
 <% end %>
+
+<% if user_signed_in? %>
+  <form action="/comments" method="post">
+    <input
+      type="hidden"
+      name="photo_id"
+      value="<%= @the_photo.id %>"
+    >
+    <label for="body">Comment</label>
+    <input
+      id="body"
+      type="text"
+      name="body"
+    >
+    <button type="submit">Add comment</button>
+  </form>
+<% end %>
