@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   devise_for :users
   get("/users",  {:controller => "users", :action => "index" })
   get("/users/:username",  {:controller => "users", :action => "show" })
+  get(
+  "/users/:username/feed",
+  { :controller => "users", :action => "feed" }
+)
   # Routes for the Follow request resource:
 
   # CREATE

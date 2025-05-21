@@ -1,0 +1,13 @@
+<h1><%= @the_user.username %>’s Feed</h1>
+
+<ul>
+  <% @photos.each do |photo| %>
+    <li>
+      <img
+        src="<%= photo.image %>"
+        alt="<%= photo.caption %>"
+      >
+      <p><%= photo.caption %></p>
+    </li>
+  <% end %>
+</ul>

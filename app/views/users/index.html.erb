@@ -38,6 +38,11 @@
             <button type="submit">Follow</button>
           </form>
 
+        <% elsif fr.status == "pending" %>
+          <!-- pending request -->
+          Request sent
+          <a href="/delete_follow_request/<%= fr.id %>">Cancel</a>
+
         <% elsif fr.status == "accepted" %>
           <!-- already following -->
           <a href="/delete_follow_request/<%= fr.id %>">Unfollow</a>
