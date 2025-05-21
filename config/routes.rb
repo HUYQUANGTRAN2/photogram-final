@@ -46,14 +46,20 @@ Rails.application.routes.draw do
   post("/modify_like/:path_id", { :controller => "likes", :action => "update" })
   
   # DELETE
-  get("/delete_like/:path_id", { :controller => "likes", :action => "destroy" })
+  get(
+    "/unlike/:path_id",
+    { :controller => "likes", :action => "destroy" }
+  )
 
   #------------------------------
 
   # Routes for the Comment resource:
 
   # CREATE
-  post("/insert_comment", { :controller => "comments", :action => "create" })
+  post(
+    "/comments",
+    { :controller => "comments", :action => "create" }
+  )
           
   # READ
   get("/comments", { :controller => "comments", :action => "index" })

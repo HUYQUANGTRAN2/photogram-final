@@ -76,3 +76,16 @@
     <button type="submit">Add comment</button>
   </form>
 <% end %>
+
+<% if user_signed_in? %>
+  <% like = Like.where({
+       :fan_id   => current_user.id,
+       :photo_id => @the_photo.id
+     }).at(0) %>
+
+  <% if like %>
+    <a href="/unlike/<%= like.id %>">
+      Unlike
+    </a>
+  <% end %>
+<% end %>
