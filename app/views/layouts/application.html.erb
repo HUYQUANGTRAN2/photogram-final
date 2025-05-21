@@ -6,18 +6,13 @@
   </head>
 
   <body>
-    <%= yield %>
-  
-  <% if notice.present? %>
-    <div>
-      <%= notice %>
-    </div>
-  <% end %>
+    <% if flash[:notice] %>
+      <p><%= flash[:notice] %></p>
+    <% end %>
 
-  <% if alert.present? %>
-    <div>
-      <%= alert %>
-    </div>
-  <% end %>
+    <% if flash[:alert] %>
+      <p><%= flash[:alert] %></p>
+    <% end %>
+    <%= yield %>
   </body>
 </html>
