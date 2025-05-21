@@ -1,15 +1,20 @@
 <h1>
   <a href="/users/<%= @the_user.username %>">
-    <%= @the_user.username %>
+    <%= @the_user.username %>s Profile
   </a>
 </h1>
 
 <p>
+  Account privacy:
   <% if @the_user.private? %>
-    Private account
+    Private
   <% else %>
-    Public account
+    Public
   <% end %>
+</p>
+
+<p>
+  Private: <%= @the_user.private? %>
 </p>
 
 <% if current_user %>
