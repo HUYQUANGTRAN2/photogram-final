@@ -1,0 +1,17 @@
+<h1>Photogram</h1>
+
+<nav>
+  <ul>
+    <li>
+      <a href="/users">All users</a>
+    </li>
+    <li>
+      <a href="/photos">All public photos</a>
+    </li>
+    <% unless user_signed_in? %>
+      <li>
+        <a href="/users/sign_in">Sign in</a>
+      </li>
+    <% end %>
+  </ul>
+</nav>
