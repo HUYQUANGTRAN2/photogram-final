@@ -8,10 +8,11 @@
     <li>
       <a href="/photos">All public photos</a>
     </li>
-    <% unless user_signed_in? %>
-      <li>
-        <a href="/users/sign_in">Sign in</a>
-      </li>
+    <% if user_signed_in? %>
+      <li><a href="/users/sign_out">Sign out</a></li>
+    <% else %>
+      <li><a href="/users/sign_in">Sign in</a></li>
+      <li><a href="/users/sign_up">Sign up</a></li>
     <% end %>
   </ul>
 </nav>
