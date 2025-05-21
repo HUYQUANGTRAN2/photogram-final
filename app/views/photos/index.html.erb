@@ -1,11 +1,3 @@
-<div>
-  <div>
-    <h1>
-      List of all photos
-    </h1>
-  </div>
-</div>
-
 <hr>
 
 <h2>All Public Photos</h2>
@@ -24,13 +16,17 @@
 <hr>
 
 <ul>
-  <% @list_of_photos.each do |photo| %>
+  <% @public_photos.each do |photo| %>
     <li>
       <img
-        src="<%= photo.image %>"
+        src="<%= photo.image%>"
         alt="<%= photo.caption %>"
-      >
-      <p><%= photo.caption %></p>
+      >     
+      <p><strong>Caption:</strong> <%= photo.caption %></p>
+      <p><strong>Likes count:</strong> <%= photo.likes_count.inspect %></p>
+      <p><strong>Comments count:</strong> <%= photo.comments_count.inspect %></p>
+      <% owner = User.where({ :id => photo.owner_id }).at(0) %> 
+      <p><strong>Owner:</strong> <%= owner.username %></p>
     </li>
   <% end %>
 </ul>

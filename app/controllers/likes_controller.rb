@@ -73,7 +73,7 @@ class LikesController < ApplicationController
     the_like.destroy
 
     redirect_to(
-      "/photos/#{photo_id}",
+      "/",
       { :notice => "Like removed successfully." }
     )
   end

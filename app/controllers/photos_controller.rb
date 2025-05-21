@@ -1,10 +1,13 @@
 class PhotosController < ApplicationController
   skip_before_action(:authenticate_user!, { :only => [:index] })
   def index
-    public_users    = User.where({ :private => false })
-    public_user_ids = public_users.map { |u| u.id }
-    @list_of_photos = Photo.where({ :owner_id => public_user_ids })
-                           .order({ :created_at => :desc })
+    # grab IDs of all public users in one step
+    public_ids     = User.where({ :private => false }).pluck(:id)
+    
+    # load only photos owned by those users, newest first
+    @public_photos = Photo.where({ :owner_id => public_ids })
+                          .order({ :created_at => :desc })
+
     render({ :template => "photos/index" })
   end
 

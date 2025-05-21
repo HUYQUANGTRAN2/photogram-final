@@ -78,26 +78,30 @@
 
 <h1><%= @the_user.username %>’s Photos</h1>
 
-<ul>
-  <% @photos.each do |photo| %>
-    <li>
-      <img
-          src="<%= photo.image %>"
-          alt="Photo by <%= @the_user.username %>"
-      >
-      <p><%= photo.caption %></p>
+<% if @the_user.private? && @photos.empty? %>
+  <p>This account is private. You must follow <%= @the_user.username %> to view their photos.</p>
+<% else %>
+  <ul>
+    <% @photos.each do |photo| %>
+      <li>
+        <img
+            src="<%= photo.image %>"
+            alt="Photo by <%= @the_user.username %>"
+        >
+        <p><%= photo.caption %></p>
 
-      <p>
-        Likes: <%= photo.likes_count %>
-      </p>
+        <p>
+          Likes: <%= photo.likes_count %>
+        </p>
 
-      <p>
-        Posted <%= time_ago_in_words(photo.created_at) %> ago
-      </p>
+        <p>
+          Posted <%= time_ago_in_words(photo.created_at) %> ago
+        </p>
 
-      <a href="/photos/<%= photo.id %>">
-        Show details
-      </a>
-    </li>
-  <% end %>
-</ul>
+        <a href="/photos/<%= photo.id %>">
+          Show details
+        </a>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

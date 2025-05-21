@@ -14,6 +14,26 @@ class UsersController < ApplicationController
     matching_users = User.where({ :username => the_username })
 
     @the_user = matching_users.at(0)
+
+    if @the_user.private?
+      # only load if current_user follows them with an accepted request
+      if current_user
+        fr = FollowRequest.where({
+          :sender_id    => current_user.id,
+          :recipient_id => @the_user.id,
+          :status       => "accepted"
+        }).at(0)
+      end
+
+      if fr
+        @photos = Photo.where({ :owner_id => @the_user.id })
+      else
+        @photos = []
+      end
+    else
+      # public account: load all their photos
+      @photos = Photo.where({ :owner_id => @the_user.id })
+    end    
     
     @photos = Photo.where({ :owner_id => @the_user.id })
 
