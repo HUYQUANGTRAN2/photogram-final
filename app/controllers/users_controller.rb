@@ -29,6 +29,12 @@ class UsersController < ApplicationController
   })
   @follower_count = accepted_followers.count
 
+  accepted_following = FollowRequest.where({
+      :sender_id => @the_user.id,
+      :status    => "accepted"
+    })
+  @following_count = accepted_following.count  
+
     render({ :template => "users/show" })
   end
 
