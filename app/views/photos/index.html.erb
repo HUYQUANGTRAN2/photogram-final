@@ -8,79 +8,29 @@
 
 <hr>
 
-<div>
-  <div>
-    <h2>
-      Add a new photo
-    </h2>
+<h2>All Public Photos</h2>
 
-    <form action="/insert_photo" method="post">
-      <div>
-        <label for="caption_box">
-          Caption
-        </label>
+<% if user_signed_in? %>
+<form action="/photos" method="post" enctype="multipart/form-data">
+  <label for="image">Image</label>
+  <input id="image" type="file" name="image">
 
-        <textarea id="caption_box" name="query_caption" rows="3"></textarea>
-      </div>
+  <label for="caption">Caption</label>
+  <input id="caption" type="text" name="caption">
 
-      <button>
-        Create photo
-      </button>
-    </form>
-  </div>
-</div>
-
+  <button type="submit">Add photo</button>
+</form>
+<% end %>
 <hr>
-<div>
-  <div>
-    <table border="1">
-      <tr>
-        <th>
-          ID
-        </th>
 
-        <th>
-          Caption
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
-        </th>
-
-        <th>
-        </th>
-      </tr>
-
-      <% @list_of_photos.each do |a_photo| %>
-      <tr>
-        <td>
-          <%= a_photo.id %>
-        </td>
-
-        <td>
-          <%= a_photo.caption %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_photo.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_photo.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/photos/<%= a_photo.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
-</div>
-
-<hr>
+<ul>
+  <% @list_of_photos.each do |photo| %>
+    <li>
+      <img
+        src="<%= photo.image %>"
+        alt="<%= photo.caption %>"
+      >
+      <p><%= photo.caption %></p>
+    </li>
+  <% end %>
+</ul>
