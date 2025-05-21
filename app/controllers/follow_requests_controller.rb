@@ -59,11 +59,24 @@ class FollowRequestsController < ApplicationController
   end
 
   def destroy
-    the_id = params.fetch("path_id")
-    the_follow_request = FollowRequest.where({ :id => the_id }).at(0)
+    the_id             = params.fetch("path_id")
+    matching_requests  = FollowRequest.where({ :id => the_id })
+    the_follow_request = matching_requests.at(0)
+
+    # stash the recipient_id before we destroy
+    recipient_id = the_follow_request.recipient_id
 
     the_follow_request.destroy
 
-    redirect_to("/users", { :notice => "Unfollowed successfully." })
+    # look up the recipient User by id
+    matching_users = User.where({ :id => recipient_id })
+    the_recipient  = matching_users.at(0)
+    
+    the_follow_request.destroy
+    
+    redirect_to(
+      "/users/#{the_recipient.username}",
+      { :notice => "Unfollowed successfully." }
+    )
   end
 end
