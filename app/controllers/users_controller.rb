@@ -37,7 +37,11 @@ class UsersController < ApplicationController
 
     render({ :template => "users/show" })
   end
-
+  
+  def edit
+    render({ :template => "users/edit" })
+  end
+  
   def feed
     the_username   = params.fetch("username")
     matching_users = User.where({ :username => the_username })
@@ -56,5 +60,18 @@ class UsersController < ApplicationController
     @photos = Photo.where({ :owner_id => followed_ids })
 
     render({ :template => "users/feed" })
+  end
+
+  def update
+    the_user = current_user
+    the_user.username = params.fetch("username")
+    # we require current_password in the form but do not verify it here
+
+    if the_user.valid?
+      the_user.save
+      redirect_to("/", { :notice => "Profile updated successfully." })
+    else
+      redirect_to("/users/edit", { :alert => the_user.errors.full_messages.to_sentence })
+    end
   end
 end
