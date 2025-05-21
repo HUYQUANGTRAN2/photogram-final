@@ -1,14 +1,10 @@
 class PhotosController < ApplicationController
+  skip_before_action(:authenticate_user!, { :only => [:index] })
   def index
-    matching_photos = Photo.all
-
-    @list_of_photos = matching_photos.order({ :created_at => :desc })
-
-    public_users     = User.where({ :private => false })
-    public_user_ids  = public_users.map { |u| u.id }
-    matching_photos  = Photo.where({ :owner_id => public_user_ids })
-    @list_of_photos  = matching_photos
-
+    public_users    = User.where({ :private => false })
+    public_user_ids = public_users.map { |u| u.id }
+    @list_of_photos = Photo.where({ :owner_id => public_user_ids })
+                           .order({ :created_at => :desc })
     render({ :template => "photos/index" })
   end
 
@@ -60,9 +56,9 @@ class PhotosController < ApplicationController
 
     if the_photo.valid?
       the_photo.save
-      redirect_to("/photos/#{the_photo.id}", { :notice => "Photo updated successfully."} )
+      redirect_to("/photos/#{path_id}", { :notice => "Photo updated successfully."} )
     else
-      redirect_to("/photos/#{the_photo.id}", { :alert => the_photo.errors.full_messages.to_sentence })
+      redirect_to("/photos/#{path_id}", { :alert => the_photo.errors.full_messages.to_sentence })
     end
   end
 

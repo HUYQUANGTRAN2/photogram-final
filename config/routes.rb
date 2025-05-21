@@ -82,7 +82,11 @@ Rails.application.routes.draw do
           
   # READ
   get("/photos", { :controller => "photos", :action => "index" })
-  
+  post(
+  "/photos",
+  { :controller => "photos", :action => "create" }
+)
+
   get("/photos/:path_id", { :controller => "photos", :action => "show" })
   
   # UPDATE
