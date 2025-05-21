@@ -1,5 +1,9 @@
 <h1>Photogram</h1>
 
+<% if current_user %>
+  <p><%= current_user.username %></p>
+<% end %>
+
 <nav>
   <ul>
     <li>

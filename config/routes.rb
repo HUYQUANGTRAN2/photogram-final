@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   # Routes for the User resource:
+  get("/users/edit",{ :controller => "users", :action => "edit" })
+  post("/users/edit",{ :controller => "users", :action => "update" })
   devise_for :users
   get("/users",  {:controller => "users", :action => "index" })
   get("/users/:username",  {:controller => "users", :action => "show" })
@@ -8,8 +10,7 @@ Rails.application.routes.draw do
   "/users/:username/feed",
   { :controller => "users", :action => "feed" }
 )
-  get("/users/edit",{ :controller => "users", :action => "edit" })
-  post("/users/edit",{ :controller => "users", :action => "update" })
+
   # Routes for the Follow request resource:
 
   # CREATE
