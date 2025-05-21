@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  # Routes for the User resource:
+  devise_for :users
+  get("/users",  {:controller => "users", :action => "index" })
+  get("/users/:username",  {:controller => "users", :action => "show" })
   # Routes for the Follow request resource:
 
   # CREATE
@@ -56,7 +61,6 @@ Rails.application.routes.draw do
 
   #------------------------------
 
-  devise_for :users
   # Routes for the Photo resource:
   
   # CREATE

@@ -1,0 +1,36 @@
+<div>
+  <div>
+    <h1>
+      All users
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+
+<ul>
+  <% @list_of_users.each do |an_user| %>
+    <li>
+      <a href="/users/<%= an_user.username %>">
+        <%= an_user.username %>
+        <% if an_user.private? %>
+            Yes
+        <% else %>
+            No
+        <% end %>
+
+      </a>
+
+       <% unless an_user.id == current_user.id %>
+        <form action="/follow_requests" method="post">
+          <input
+            type="hidden"
+            name="recipient_id"
+            value="<%= an_user.id %>"
+          >
+          <button type="submit">Follow</button>
+        </form>
+    </li>
+  <% end %>
+</ul>
