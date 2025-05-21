@@ -45,3 +45,17 @@
     <button type="submit">Follow</button>
   </form>
 <% end %>
+
+<h1><%= @the_user.username %>’s Photos</h1>
+
+<ul>
+  <% @photos.each do |photo| %>
+    <li>
+      <img
+          src="<%= photo.image %>"
+          alt="Photo by <%= @the_user.username %>"
+      >
+      <p><%= photo.caption %></p>
+    </li>
+  <% end %>
+</ul>

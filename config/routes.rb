@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   get("/follow_requests", { :controller => "follow_requests", :action => "index" })
   
   get("/follow_requests/:path_id", { :controller => "follow_requests", :action => "show" })
+  post(
+  "/follow_requests",
+  { :controller => "follow_requests", :action => "create" }
+)
   
   # UPDATE
   

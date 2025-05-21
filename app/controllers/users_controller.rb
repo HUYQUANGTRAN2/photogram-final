@@ -14,6 +14,8 @@ class UsersController < ApplicationController
 
     @the_user = matching_users.at(0)
     
+    @photos = Photo.where({ :owner_id => @the_user.id })
+    
     pending_requests = FollowRequest.where({
       :recipient_id => @the_user.id,
       :status       => "pending"
