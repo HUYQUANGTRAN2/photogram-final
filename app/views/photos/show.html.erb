@@ -1,5 +1,9 @@
 <h1><%= @the_photo.caption %></h1>
 
+<p>
+  Posted <%= time_ago_in_words(@the_photo.created_at) %> ago
+</p>
+
 <img
   src="<%= @the_photo.image%>"
   alt="<%= @the_photo.caption %>"
@@ -8,6 +12,23 @@
 <p>
   Posted by <%= @owner_user.username %>
 </p>
+
+<hr>
+
+<h2>Comments</h2>
+<% if @comments.empty? %>
+  <p>No comments yet.</p>
+<% else %>
+  <ul>
+    <% @comments.each do |comment| %>
+      <% commenter = User.where({ :id => comment.author_id }).at(0) %>
+      <li>
+        <strong><%= commenter.username %>:</strong>
+        <%= comment.body %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
 
 <% if user_signed_in? && current_user.id == @the_photo.owner_id %>
   <a href="/delete_photo/<%= @the_photo.id %>">

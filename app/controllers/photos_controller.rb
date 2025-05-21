@@ -19,6 +19,9 @@ class PhotosController < ApplicationController
 
     @the_photo = matching_photos.at(0)
 
+    matching_comments = Comment.where({ :photo_id => @the_photo.id })
+    @comments         = matching_comments
+
     matching_users = User.where({ :id => @the_photo.owner_id })
     @owner_user    = matching_users.at(0)
 
